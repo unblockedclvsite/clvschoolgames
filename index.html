@@ -69,33 +69,15 @@
       margin-bottom: 30px;
     }
 
-    /* Cyber Control Panel */
+    /* Cyber Control Panel (Compact zonder zoekbalk) */
     .control-panel {
       background: rgba(5, 5, 8, 0.85);
       border: 1px solid rgba(0, 255, 204, 0.2) !important;
       border-radius: 14px;
-      padding: 20px;
+      padding: 15px 20px;
       margin-bottom: 30px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.7);
     }
-    .search-box {
-      width: 100%;
-      padding: 15px 22px;
-      background: #0d0e12;
-      border: 1px solid rgba(0, 255, 204, 0.4) !important;
-      border-radius: 10px;
-      color: #00ffcc;
-      font-size: 15px;
-      letter-spacing: 1px;
-      margin-bottom: 15px;
-      text-shadow: 0 0 5px rgba(0,255,204,0.3);
-      transition: all 0.3s;
-    }
-    .search-box:focus {
-      border-color: #00ffcc !important;
-      box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
-    }
-    .search-box::placeholder { color: rgba(0, 255, 204, 0.3); }
     
     .panel-actions {
       display: flex;
@@ -168,7 +150,7 @@
       box-shadow: 0 10px 25px rgba(0, 255, 204, 0.2);
     }
     
-    /* FUNCTIE 3: Spel van de dag (Trending) Goud gloeiend effect */
+    /* Spel van de dag (Trending) */
     .game-row.trending {
       border: 2px solid #ffcc00 !important;
       box-shadow: 0 0 20px rgba(255, 204, 0, 0.25);
@@ -207,7 +189,7 @@
       text-shadow: 0 0 10px #ffcc00;
     }
 
-    /* FUNCTIE 5: Info Pop-up icoon */
+    /* Info Pop-up icoon */
     .info-icon {
       font-size: 16px;
       color: rgba(255, 255, 255, 0.4);
@@ -258,7 +240,7 @@
       box-shadow: 0 0 20px #00ffcc;
     }
 
-    /* --- 3. FOOTER DESIGN (Met RGB Rand) --- */
+    /* --- 3. FOOTER DESIGN --- */
     .matrix-footer {
       background: rgba(5, 5, 8, 0.95);
       border: 2px solid #00ffcc !important;
@@ -268,7 +250,7 @@
       animation: rgbGlow 8s linear infinite;
     }
 
-    /* Info modal popup box style */
+    /* Info modal box style */
     .info-modal {
       position: fixed;
       top: 50%; left: 50%;
@@ -329,10 +311,8 @@
     <p style="color: #a0a5b5; font-size: 11px; letter-spacing: 0.5px;">De centrale hub voor CLV-gamers. Ontdek unblocked schoolgames en speel direct.</p>
   </div>
 
-  <!-- CONTROLS: ZOEKBALK & FILTERS -->
+  <!-- CONTROLS: FILTERS & ROULETTE (ZONDER ZOEKBALK) -->
   <div class="control-panel">
-    <input type="text" id="cyber-search" class="search-box" placeholder="ZOEK CODE OF GAME NAAR KEUZE..." onkeyup="filterGames()">
-    
     <div class="panel-actions">
       <button class="filter-btn active" onclick="setFilter('all', this)">ALL GAMES</button>
       <button class="filter-btn" onclick="setFilter('classics', this)">CLASSICS</button>
@@ -382,7 +362,7 @@
       <div class="title-area">
         <span class="fav-star" onclick="toggleFavorite('game4')">★</span>
         <h2 class="game-title">Cookie Clicker</h2>
-        <span class="info-icon" onclick="openModal('Cookie Clicker', 'De ultieme idle game. Klik op de reuzenkoekje, koop grootmoeders en portalen, en genereer quadriljoenen cookies per seconde.')">i</span>
+        <span class="info-icon" onclick="openModal('Cookie Clicker', 'De ultieme idle game. Klik op de reuzenkoekje, koop grootmoeders Nic, en genereer cookies per seconde.')">i</span>
       </div>
       <a href="https://coolmathgames.com" target="_blank" class="game-btn" onclick="playLaunchSound()">LAUNCH</a>
     </div>
@@ -471,7 +451,7 @@
   setInterval(updateMatrixClock, 1000);
   updateMatrixClock();
 
-  // FUNCTIE 5: Info Modals Open/Sluit
+  // Info Modals Open/Sluit
   function openModal(title, text) {
     playLaunchSound();
     document.getElementById('modal-game-title').textContent = title;
@@ -486,7 +466,7 @@
     document.getElementById('overlay').classList.remove('active');
   }
 
-  // FUNCTIE 4: 3D-Tilt Effect & Hover Geluid koppelen
+  // 3D-Tilt Effect & Hover Geluid koppelen
   document.querySelectorAll('.game-row').forEach(row => {
     row.addEventListener('mouseenter', () => playHoverSound());
     
@@ -515,6 +495,7 @@
   }
   window.onload = initFavorites;
 
+  // Schakel favoriet om
   function toggleFavorite(id) {
     playLaunchSound();
     const row = document.querySelector(`[data-id="${id}"]`);
@@ -532,7 +513,7 @@
     filterGames();
   }
 
-  // Filter & Zoekmachine Logica
+  // Filter Logica
   function setFilter(tag, btn) {
     playLaunchSound();
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -542,20 +523,16 @@
   }
 
   function filterGames() {
-    const query = document.getElementById('cyber-search').value.toLowerCase();
     document.querySelectorAll('.game-row').forEach(row => {
-      const title = row.querySelector('.game-title').textContent.toLowerCase();
       const tags = row.getAttribute('data-tags');
       const id = row.getAttribute('data-id');
-      
-      const matchesSearch = title.includes(query);
       let matchesFilter = false;
       
       if (activeFilter === 'all') matchesFilter = true;
       else if (activeFilter === 'favs' && favorites.includes(id)) matchesFilter = true;
       else if (tags === activeFilter) matchesFilter = true;
       
-      if (matchesSearch && matchesFilter) {
+      if (matchesFilter) {
         row.classList.remove('hidden');
       } else {
         row.classList.add('hidden');
