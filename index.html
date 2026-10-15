@@ -408,7 +408,7 @@
   // ONZICHTBARE PANIC FUNCTION: Gaat direct naar clv.nl bij Escape
   window.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
-      window.location.href = 'https://clv.nl';
+      window.location.href = 'https://www.clv.nl';
     }
   });
 
@@ -468,9 +468,10 @@
     document.getElementById('overlay').classList.add('active');
   }
 
+  // GEFIKST: 'remove' is nu netjes veranderd naar 'active'
   function closeModal() {
     playHoverSound();
-    document.getElementById('infoModal').classList.remove('remove');
+    document.getElementById('infoModal').classList.remove('active');
     document.getElementById('overlay').classList.remove('active');
   }
 
