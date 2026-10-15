@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CLV SCHOOL GAMES</title>
+  <!-- Officiële Orbitron Font-Injectie -->
+  <link rel="stylesheet" href="https://googleapis.com">
+  <style>
+    @import url('https://googleapis.com');
+    
+    /* Sloop alle standaard browserfonts en forceer de zwart-neon stijl */
+    html, body, * {
+      font-family: 'Orbitron', monospace !important;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      border: none !important;
+      outline: none !important;
+    }
+
+    body {
+      background-color: #000000 !important; /* 100% gitzwart */
+      padding: 40px 20px !important;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* --- 1. HEADER DESIGN --- */
+    .matrix-header {
+      background: #000000;
+      border: 2px solid #00ffcc !important; /* Neon cyaan rand */
+      border-radius: 12px;
+      padding: 20px;
+      color: #ffffff;
+      max-width: 750px;
+      margin: 0 auto 35px auto;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+    }
+
+    /* --- 2. GAME LIST DESIGN --- */
+    .game-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 750px;
+      margin: 0 auto 35px auto;
+      width: 100%;
+    }
+    .game-row {
+      background: #000000;
+      border: 1px solid rgba(0, 255, 204, 0.3) !important;
+      border-radius: 12px;
+      padding: 15px 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      transition: all 0.25s ease-in-out;
+    }
+    .game-row:hover {
+      border-color: #00ffcc !important;
+      transform: translateX(4px); /* Schuift subtiel op bij hover */
+      box-shadow: 0 0 25px rgba(0, 255, 204, 0.3);
+    }
+    .game-title {
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .game-btn {
+      display: inline-block;
+      padding: 10px 25px;
+      background: transparent;
+      color: #00ffcc;
+      border: 2px solid #00ffcc !important;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+    }
+    .game-btn:hover {
+      background: #00ffcc;
+      color: #000000;
+      box-shadow: 0 0 10px #00ffcc;
+      cursor: pointer;
+    }
+
+    /* --- 3. FOOTER DESIGN (Met live klok) --- */
+    .matrix-footer {
+      max-width: 750px;
+      margin: 0 auto;
+      width: 100%;
+      background: #000000;
+      border: 2px solid #00ffcc !important;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+    }
+
+    @media (max-width: 480px) {
+      .game-row { flex-direction: column; text-align: center; gap: 12px; }
+      .game-btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. HEADER ELEMENT -->
+  <div class="matrix-header">
+    <h1 style="font-size: 24px; font-weight: 900; text-transform: uppercase; color: #ffffff; text-shadow: 0 0 10px #00ffcc; margin-bottom: 5px; letter-spacing: 2px;">CLV SCHOOL GAMES</h1>
+    <p style="color: #a0a5b5; font-size: 11px; letter-spacing: 0.5px;">De centrale hub voor CLV-gamers. Ontdek unblocked schoolgames en speel direct.</p>
+  </div>
+
+  <!-- 2. GAME LIST ELEMENT (Inclusief de juiste links) -->
+  <div class="game-list">
+    <div class="game-row">
+      <h2 class="game-title">School Games</h2>
+      <a href="https://google.com" target="_blank" class="game-btn">LAUNCH</a>
+    </div>
+    <div class="game-row">
+      <h2 class="game-title">InxanityLabs</h2>
+      <a href="https://inxanitylabs.com" target="_blank" class="game-btn">LAUNCH</a>
+    </div>
+    <div class="game-row">
+      <h2 class="game-title">Minecraft</h2>
+      <a href="https://eaglercraft.com" target="_blank" class="game-btn">LAUNCH</a>
+    </div>
+    <div class="game-row">
+      <h2 class="game-title">Cookie Clicker</h2>
+      <a href="https://coolmathgames.com" target="_blank" class="game-btn">LAUNCH</a>
+    </div>
+  </div>
+
+  <!-- 3. FOOTER ELEMENT (Live tikkende klok) -->
+  <div class="matrix-footer">
+    <div style="font-size: 34px; font-weight: 900; color: #ffffff; letter-spacing: 4px; margin-bottom: 8px; text-shadow: 0 0 10px #00ffcc;">
+      <span id="m-hours">00</span>:<span id="m-minutes">00</span>:<span id="m-seconds" style="color: #00ffcc;">00</span>
+    </div>
+    <div style="font-size: 10px; color: #555555; font-weight: 700; letter-spacing: 2px;">
+      &copy; 2026 CLV SCHOOL GAMES // ALL RIGHTS RESERVED
+    </div>
+  </div>
+
+  <script>
+    // Realtime kloksynchronisatie
+    function updateMatrixClock() {
+      const now = new Date();
+      document.getElementById("m-hours").textContent = String(now.getHours()).padStart(2, '0');
+      document.getElementById("m-minutes").textContent = String(now.getMinutes()).padStart(2, '0');
+      document.getElementById("m-seconds").textContent = String(now.getSeconds()).padStart(2, '0');
+    }
+    setInterval(updateMatrixClock, 1000);
+    updateMatrixClock();
+  </script>
+</body>
+</html>
