@@ -4,12 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CLV SCHOOL GAMES</title>
-  <!-- Officiële Orbitron Font-Injectie -->
   <link rel="stylesheet" href="https://googleapis.com">
   <style>
     @import url('https://googleapis.com');
     
-    /* Sloop alle standaard browserfonts en forceer de zwart-neon stijl */
+    /* Universele Matrix Reset */
     html, body, * {
       font-family: 'Orbitron', monospace !important;
       box-sizing: border-box;
@@ -20,38 +19,124 @@
     }
 
     body {
-      background-color: #000000 !important; /* 100% gitzwart */
-      padding: 40px 20px !important;
+      background-color: #000000 !important;
+      color: #ffffff;
       min-height: 100vh;
+      padding: 40px 20px !important;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* FUNCTIE 4: Geanimeerde Cyber-Grid Achtergrond */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: 
+        linear-gradient(rgba(0, 255, 204, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 204, 0.04) 1px, transparent 1px);
+      background-size: 30px 30px;
+      z-index: -1;
+      animation: matrixScroll 20s linear infinite;
+    }
+    @keyframes matrixScroll {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 30px; }
+    }
+
+    /* Gedeelde breedte voor een perfecte, strakke uitlijning */
+    .cyber-container {
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* --- 1. HEADER (Exact even breed) --- */
+    .matrix-header {
+      background: rgba(0, 0, 0, 0.9);
+      border: 2px solid #00ffcc !important;
+      border-radius: 16px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+      margin-bottom: 25px;
+    }
+
+    /* FUNCTIE 2 & 3: Cyber Control Panel (Zoeken, Filters & Roulette) */
+    .control-panel {
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(0, 255, 204, 0.3) !important;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 25px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      gap: 12px;
     }
-
-    /* --- 1. HEADER DESIGN --- */
-    .matrix-header {
+    .search-box {
+      width: 100%;
+      padding: 12px 20px;
+      background: #070708;
+      border: 1px solid rgba(0, 255, 204, 0.5) !important;
+      border-radius: 8px;
+      color: #00ffcc;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+    .search-box::placeholder { color: rgba(0, 255, 204, 0.4); }
+    
+    .panel-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    /* FUNCTIE 1: Filter Knoppen */
+    .filter-btn {
+      padding: 8px 16px;
       background: #000000;
-      border: 2px solid #00ffcc !important; /* Neon cyaan rand */
-      border-radius: 12px;
-      padding: 20px;
       color: #ffffff;
-      max-width: 750px;
-      margin: 0 auto 35px auto;
-      text-align: center;
-      box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 1px;
+      transition: all 0.2s;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      border-color: #00ffcc !important;
+      color: #00ffcc;
+      text-shadow: 0 0 5px #00ffcc;
     }
 
-    /* --- 2. GAME LIST DESIGN --- */
+    /* Roulette Knop */
+    .roulette-btn {
+      padding: 8px 16px;
+      background: #00ffcc;
+      color: #000000;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 900;
+      cursor: pointer;
+      letter-spacing: 1px;
+      margin-left: auto;
+      transition: all 0.2s;
+    }
+    .roulette-btn:hover {
+      box-shadow: 0 0 15px #00ffcc;
+      transform: scale(1.03);
+    }
+
+    /* --- 2. GAME LIST ELEMENT --- */
     .game-list {
       display: flex;
       flex-direction: column;
       gap: 12px;
-      max-width: 750px;
-      margin: 0 auto 35px auto;
-      width: 100%;
+      margin-bottom: 25px;
     }
     .game-row {
-      background: #000000;
+      background: rgba(0, 0, 0, 0.9);
       border: 1px solid rgba(0, 255, 204, 0.3) !important;
       border-radius: 12px;
       padding: 15px 25px;
@@ -61,11 +146,32 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
       transition: all 0.25s ease-in-out;
     }
+    .game-row.hidden { display: none !important; }
     .game-row:hover {
       border-color: #00ffcc !important;
-      transform: translateX(4px); /* Schuift subtiel op bij hover */
-      box-shadow: 0 0 25px rgba(0, 255, 204, 0.3);
+      transform: translateX(4px);
+      box-shadow: 0 0 25px rgba(0, 255, 204, 0.25);
     }
+    
+    .title-area {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    /* FUNCTIE 5: Favorieten Ster-knop */
+    .fav-star {
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .fav-star.active {
+      color: #ffcc00;
+      text-shadow: 0 0 8px #ffcc00;
+    }
+
     .game-title {
       color: #ffffff;
       font-size: 16px;
@@ -85,21 +191,17 @@
       text-decoration: none;
       letter-spacing: 1px;
       text-transform: uppercase;
-      transition: all 0.2s ease;
+      transition: all 0.2s;
     }
     .game-btn:hover {
       background: #00ffcc;
       color: #000000;
       box-shadow: 0 0 10px #00ffcc;
-      cursor: pointer;
     }
 
-    /* --- 3. FOOTER DESIGN (Met live klok) --- */
+    /* --- 3. FOOTER DESIGN (Exact even breed) --- */
     .matrix-footer {
-      max-width: 750px;
-      margin: 0 auto;
-      width: 100%;
-      background: #000000;
+      background: rgba(0, 0, 0, 0.9);
       border: 2px solid #00ffcc !important;
       border-radius: 12px;
       padding: 20px;
@@ -107,41 +209,74 @@
       box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 600px) {
       .game-row { flex-direction: column; text-align: center; gap: 12px; }
-      .game-btn { width: 100%; }
+      .roulette-btn { width: 100%; margin-left: 0; }
     }
   </style>
 </head>
 <body>
 
+<div class="cyber-container">
+
   <!-- 1. HEADER ELEMENT -->
   <div class="matrix-header">
-    <h1 style="font-size: 24px; font-weight: 900; text-transform: uppercase; color: #ffffff; text-shadow: 0 0 10px #00ffcc; margin-bottom: 5px; letter-spacing: 2px;">CLV SCHOOL GAMES</h1>
+    <h1 style="font-size: 26px; font-weight: 900; text-transform: uppercase; color: #ffffff; text-shadow: 0 0 12px #00ffcc; margin-bottom: 5px; letter-spacing: 2px;">CLV SCHOOL GAMES</h1>
     <p style="color: #a0a5b5; font-size: 11px; letter-spacing: 0.5px;">De centrale hub voor CLV-gamers. Ontdek unblocked schoolgames en speel direct.</p>
   </div>
 
-  <!-- 2. GAME LIST ELEMENT (Inclusief de juiste links) -->
-  <div class="game-list">
-    <div class="game-row">
-      <h2 class="game-title">School Games</h2>
-      <a href="https://google.com" target="_blank" class="game-btn">LAUNCH</a>
-    </div>
-    <div class="game-row">
-      <h2 class="game-title">InxanityLabs</h2>
-      <a href="https://inxanitylabs.com" target="_blank" class="game-btn">LAUNCH</a>
-    </div>
-    <div class="game-row">
-      <h2 class="game-title">Minecraft</h2>
-      <a href="https://eaglercraft.com" target="_blank" class="game-btn">LAUNCH</a>
-    </div>
-    <div class="game-row">
-      <h2 class="game-title">Cookie Clicker</h2>
-      <a href="https://coolmathgames.com" target="_blank" class="game-btn">LAUNCH</a>
+  <!-- CONTROLS: ZOEKBALK & FILTERS -->
+  <div class="control-panel">
+    <input type="text" id="cyber-search" class="search-box" placeholder="ZOEK CODE OF GAME NAAR KEUZE..." onkeyup="filterGames()">
+    
+    <div class="panel-actions">
+      <button class="filter-btn active" onclick="setFilter('all', this)">ALL GAMES</button>
+      <button class="filter-btn" onclick="setFilter('classics', this)">CLASSICS</button>
+      <button class="filter-btn" onclick="setFilter('sandbox', this)">SANDBOX</button>
+      <button class="filter-btn" onclick="setFilter('favs', this)">⭐ FAVORITES</button>
+      
+      <button class="roulette-btn" onclick="triggerRoulette()">🎰 RANDOM GAME</button>
     </div>
   </div>
 
-  <!-- 3. FOOTER ELEMENT (Live tikkende klok) -->
+  <!-- 2. GAME LIST ELEMENT (Met categorie tags) -->
+  <div class="game-list" id="games-container">
+    
+    <div class="game-row" data-id="game1" data-tags="classics">
+      <div class="title-area">
+        <span class="fav-star" onclick="toggleFavorite('game1')">★</span>
+        <h2 class="game-title">School Games</h2>
+      </div>
+      <a href="https://google.com" target="_blank" class="game-btn">LAUNCH</a>
+    </div>
+
+    <div class="game-row" data-id="game2" data-tags="classics">
+      <div class="title-area">
+        <span class="fav-star" onclick="toggleFavorite('game2')">★</span>
+        <h2 class="game-title">InxanityLabs</h2>
+      </div>
+      <a href="https://inxanitylabs.com" target="_blank" class="game-btn">LAUNCH</a>
+    </div>
+
+    <div class="game-row" data-id="game3" data-tags="sandbox">
+      <div class="title-area">
+        <span class="fav-star" onclick="toggleFavorite('game3')">★</span>
+        <h2 class="game-title">Minecraft</h2>
+      </div>
+      <a href="https://eaglercraft.com" target="_blank" class="game-btn">LAUNCH</a>
+    </div>
+
+    <div class="game-row" data-id="game4" data-tags="classics">
+      <div class="title-area">
+        <span class="fav-star" onclick="toggleFavorite('game4')">★</span>
+        <h2 class="game-title">Cookie Clicker</h2>
+      </div>
+      <a href="https://coolmathgames.com" target="_blank" class="game-btn">LAUNCH</a>
+    </div>
+
+  </div>
+
+  <!-- 3. FOOTER ELEMENT -->
   <div class="matrix-footer">
     <div style="font-size: 34px; font-weight: 900; color: #ffffff; letter-spacing: 4px; margin-bottom: 8px; text-shadow: 0 0 10px #00ffcc;">
       <span id="m-hours">00</span>:<span id="m-minutes">00</span>:<span id="m-seconds" style="color: #00ffcc;">00</span>
@@ -151,16 +286,110 @@
     </div>
   </div>
 
-  <script>
-    // Realtime kloksynchronisatie
-    function updateMatrixClock() {
-      const now = new Date();
-      document.getElementById("m-hours").textContent = String(now.getHours()).padStart(2, '0');
-      document.getElementById("m-minutes").textContent = String(now.getMinutes()).padStart(2, '0');
-      document.getElementById("m-seconds").textContent = String(now.getSeconds()).padStart(2, '0');
+</div>
+
+<script>
+  let activeFilter = 'all';
+  let favorites = JSON.parse(localStorage.getItem('clv_favorites')) || [];
+
+  // Update de klok
+  function updateMatrixClock() {
+    const now = new Date();
+    document.getElementById("m-hours").textContent = String(now.getHours()).padStart(2, '0');
+    document.getElementById("m-minutes").textContent = String(now.getMinutes()).padStart(2, '0');
+    document.getElementById("m-seconds").textContent = String(now.getSeconds()).padStart(2, '0');
+  }
+  setInterval(updateMatrixClock, 1000);
+  updateMatrixClock();
+
+  // Favorieten Systeem Logica
+  function initFavorites() {
+    document.querySelectorAll('.game-row').forEach(row => {
+      const id = row.getAttribute('data-id');
+      const star = row.querySelector('.fav-star');
+      if (favorites.includes(id)) {
+        star.classList.add('active');
+        // Breng favoriet naar de top van de lijst
+        document.getElementById('games-container').prepend(row);
+      }
+    });
+  }
+  window.onload = initFavorites;
+
+  function toggleFavorite(id) {
+    const row = document.querySelector(`[data-id="${id}"]`);
+    const star = row.querySelector('.fav-star');
+    
+    if (favorites.includes(id)) {
+      favorites = favorites.filter(fav => fav !== id);
+      star.classList.remove('active');
+    } else {
+      favorites.push(id);
+      star.classList.add('active');
+      document.getElementById('games-container').prepend(row);
     }
-    setInterval(updateMatrixClock, 1000);
-    updateMatrixClock();
-  </script>
+    localStorage.setItem('clv_favorites', JSON.stringify(favorites));
+    filterGames();
+  }
+
+  // Filter & Zoekmachine Logica
+  function setFilter(tag, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = tag;
+    filterGames();
+  }
+
+  function filterGames() {
+    const query = document.getElementById('cyber-search').value.toLowerCase();
+    document.querySelectorAll('.game-row').forEach(row => {
+      const title = row.querySelector('.game-title').textContent.toLowerCase();
+      const tags = row.getAttribute('data-tags');
+      const id = row.getAttribute('data-id');
+      
+      const matchesSearch = title.includes(query);
+      let matchesFilter = false;
+      
+      if (activeFilter === 'all') matchesFilter = true;
+      else if (activeFilter === 'favs' && favorites.includes(id)) matchesFilter = true;
+      else if (tags === activeFilter) matchesFilter = true;
+      
+      if (matchesSearch && matchesFilter) {
+        row.classList.remove('hidden');
+      } else {
+        row.classList.add('hidden');
+      }
+    });
+  }
+
+  // Roulette Button Logica
+  function triggerRoulette() {
+    const visibleGames = Array.from(document.querySelectorAll('.game-row:not(.hidden)'));
+    if (visibleGames.length === 0) return;
+    
+    let counter = 0;
+    const interval = setInterval(() => {
+      visibleGames.forEach(g => g.style.borderColor = 'rgba(0, 255, 204, 0.3)');
+      const randomGame = visibleGames[Math.floor(Math.random() * visibleGames.length)];
+      randomGame.style.borderColor = '#9D00FF';
+      
+      counter++;
+      if (counter > 10) {
+        clearInterval(interval);
+        visibleGames.forEach(g => g.style.borderColor = 'rgba(0, 255, 204, 0.3)');
+        const absoluteWinner = visibleGames[Math.floor(Math.random() * visibleGames.length)];
+        absoluteWinner.style.borderColor = '#00ffcc';
+        absoluteWinner.style.boxShadow = '0 0 30px #00ffcc';
+        
+        // Open de game na een korte vertraging
+        setTimeout(() => {
+          const url = absoluteWinner.querySelector('.game-btn').getAttribute('href');
+          window.open(url, '_blank');
+          absoluteWinner.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.5)';
+        }, 800);
+      }
+    }, 100);
+  }
+</script>
 </body>
 </html>
