@@ -405,6 +405,13 @@
   let activeFilter = 'all';
   let favorites = JSON.parse(localStorage.getItem('clv_favorites')) || [];
 
+  // ONZICHTBARE PANIC FUNCTION: Gaat direct naar clv.nl bij Escape
+  window.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      window.location.href = 'https://clv.nl';
+    }
+  });
+
   // Audio Context Synthesizer (Genereert retro geluiden live via code!)
   let audioCtx = null;
   function getAudioCtx() {
@@ -463,7 +470,7 @@
 
   function closeModal() {
     playHoverSound();
-    document.getElementById('infoModal').classList.remove('active');
+    document.getElementById('infoModal').classList.remove('remove');
     document.getElementById('overlay').classList.remove('active');
   }
 
